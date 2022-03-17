@@ -1,1 +1,15 @@
+browser -> server HTTP GET https://studies.cs.helsinki.fi/exampleapp/notes
+server -> browser spa html document
+browser -> server HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.css
+server -> browser main.css
+browser -> server HTTP GET https://studies.cs.helsinki.fi/exampleapp/spa.js
+server -> browser spa.js
 
+Spa.js triggers the page to get data.json from the server
+
+browse -> server HTTP GET https://studies.cs.helsinki.fi/exampleapp/data.json
+server -> browser [{"content":"ciao","date":"2022-03-17T14:09:45.149Z"}, ...]
+
+Once it was the data onreadystatechange even listener is triggered
+readrawNotes function is executed within the even listener that will create unordered list 
+and will put note data in li elements
