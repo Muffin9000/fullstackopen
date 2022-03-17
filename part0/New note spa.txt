@@ -1,0 +1,5 @@
+browser -> server HTTP POST to   https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+server -> browser HTTP REPONSE 201 with code message "note created"
+
+note was added to the page without reloading the whole page and fetching the whole json array
+as spa.js adds the new notes to notes array and executes redrawNotes before sending the new note to the server
