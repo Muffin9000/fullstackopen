@@ -11,47 +11,87 @@ const Part = (props) => {
   )
 }
 
-const Content = (props) => {
-  const part_arr = []
-  props.parts.forEach(value => {
-    console.log(value.name)
-    part_arr.push(<Part name={value.name} exercises={value.exercises} /> )
-  })
-  console.log(part_arr)
+const Content = ({parts}) => {
+
   return (
-    <div>
-      {part_arr}
-    </div>
+    <>
+      {parts.map((part) => <Part key={part.id} name={part.name} exercises={part.exercises} />)}
+    </>
   )
 }
 
-const Total = (props) => {
-  let results = 0
-  props.parts.forEach(value => {
-    results += value.exercises
-  })
-
-  return (
-    <p>Number of exercises {results}</p> 
-  )
-}
-
-const App = () => {
-  const course = {
-    name: "Half Stack application development", 
-    parts: [
-      {name: "Fundamentals of React", exercises: 10},
-      {name: "Using props to pass data", exercises: 7},
-      {name: "State of a component", exercises: 14}
-    ]
+const Total = ({parts}) => {
+  function getTotal(sum, num) {
+    return sum + num.exercises
   }
 
+  let total = parts.reduce(getTotal , 0)
   return (
-    <div>
+    <p><strong>total of {total} exercises</strong></p> 
+  )
+}
+
+const Course = ({course}) => {
+  return (
+    <>
       <Header course={course.name} />
       <Content parts={course.parts} />
       <Total parts={course.parts}/>
-    </div>
+    </>
+  )
+}
+
+
+const App = () => {
+  const courses = [
+    {
+      name: 'Half Stack application development',
+      id: 1,
+      parts: [
+        {
+          name: 'Fundamentals of React',
+          exercises: 10,
+          id: 1
+        },
+        {
+          name: 'Using props to pass data',
+          exercises: 7,
+          id: 2
+        },
+        {
+          name: 'State of a component',
+          exercises: 14,
+          id: 3
+        },
+        {
+          name: 'Redux',
+          exercises: 11,
+          id: 4
+        }
+      ]
+    }, 
+    {
+      name: 'Node.js',
+      id: 2,
+      parts: [
+        {
+          name: 'Routing',
+          exercises: 3,
+          id: 1
+        },
+        {
+          name: 'Middlewares',
+          exercises: 7,
+          id: 2
+        }
+      ]
+    }
+  ]
+
+  return (
+  <>
+    {courses.map(course => <Course key={course.id} course={course} />)}
+  </>
   )
 }
 
